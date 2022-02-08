@@ -42,10 +42,11 @@ public class ErrorTests
     [InlineData(-100, "Some info about error", "detail")]
     public void CreateErrorlWithErrorId_ShouldInitializeAllCorrect_Always(int? errorId, string generalMessage, string detailErrorMessage)
     {
-        Dictionary<string, object> messageParams = new ();
-
-        messageParams.Add("text", new object());
-        messageParams.Add("ho-ho-ho", new List<DateTime>());
+        Dictionary<string, object> messageParams = new ()
+        {
+            { "text", new object() },
+            { "ho-ho-ho", new List<DateTime>() }
+        };
 
         Error error = Error.CreateError(generalMessage, detailErrorMessage, errorId, messageParams);
 
