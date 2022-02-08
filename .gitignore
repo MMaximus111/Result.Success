@@ -237,3 +237,5 @@ _Pvt_Extensions
 **/.idea/**/modules.xml
 src/.*/
 
+Result/.idea/.idea.Result/.idea/projectSettingsUpdater.xml
+Result/.idea/.idea.Result/.idea/vcs.xml

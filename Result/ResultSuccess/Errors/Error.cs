@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace Result.Errors
+namespace ResultSuccess.Errors
 {
     /// <summary>
     /// Defines an error to encapsulate error logic of some action.
