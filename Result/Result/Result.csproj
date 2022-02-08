@@ -5,14 +5,20 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <PackageVersion>0.0.9</PackageVersion>
-        <Title>Result</Title>
+        <Title>Result.Success</Title>
         <Authors>Maxim Usatenko</Authors>
         <Description>Simple Result pattern implementation in .NET</Description>
-        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/MMaximus111/Result</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>result</PackageTags>
+        <PackageTags>result, response, error, success</PackageTags>
         <LangVersion>10</LangVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageProjectUrl>https://github.com/MMaximus111/Result</PackageProjectUrl>
+        <PackageId>Result.Success</PackageId>
+        <PackageReleaseNotes>Pilot version of Result.Success</PackageReleaseNotes>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Result.Errors
@@ -75,11 +76,14 @@ namespace Result.Errors
         {
             Error error = new (generalErrorMessage);
 
-            foreach (string detailErrorMessage in detailErrorMessages)
+            if (detailErrorMessages?.Any() == true)
             {
-                Error detailError = new (detailErrorMessage);
+                foreach (string detailErrorMessage in detailErrorMessages)
+                {
+                    Error detailError = new (detailErrorMessage);
 
-                error.AddErrorDetail(detailError);
+                    error.AddErrorDetail(detailError);
+                }
             }
 
             return error;

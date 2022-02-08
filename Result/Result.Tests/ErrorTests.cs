@@ -19,8 +19,8 @@ public class ErrorTests
 
         Assert.Equal(generalMessage, error.ErrorMessage);
 
-        Assert.True(error.Details.Any(x => string.Equals(x.ErrorMessage, detailMessage1)));
-        Assert.True(error.Details.Any(x => string.Equals(x.ErrorMessage, detailMessage2)));
+        Assert.Contains(error.Details, x => string.Equals(x.ErrorMessage, detailMessage1));
+        Assert.Contains(error.Details, x => string.Equals(x.ErrorMessage, detailMessage2));
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class ErrorTests
 
         error.AddErrorDetail(detailError);
 
-        Assert.True(error.Details.Contains(detailError));
+        Assert.Contains(detailError, error.Details);
     }
 
     [Theory]

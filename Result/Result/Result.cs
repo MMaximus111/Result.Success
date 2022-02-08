@@ -50,16 +50,6 @@ public class Result : IResult
     }
 
     /// <summary>
-    /// Error result with error object.
-    /// </summary>
-    /// <param name="error">Error object</param>
-    /// <returns>Error result.</returns>
-    public static Result<T> Error<T>(Error error)
-    {
-        return Result<T>.Error(error);
-    }
-
-    /// <summary>
     /// Error result with error messages.
     /// </summary>
     /// <param name="generalErrorMessage">General error message.</param>
@@ -78,9 +68,12 @@ public class Result : IResult
     /// <param name="warnings">Collection of warnings.</param>
     public void AddWarnings(params string[] warnings)
     {
-        Warnings ??= new List<string>();
+        if (warnings?.Any() == true)
+        {
+            Warnings ??= new List<string>();
 
-        Warnings = Warnings.Union(warnings).ToList();
+            Warnings = Warnings.Union(warnings).ToList();   
+        }
     }
 }
 
