@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Result.Errors;
@@ -7,7 +6,7 @@ using Result.Errors;
 namespace Result;
 
 /// <summary>
-/// Defines a result to incapsulate result logic of some action.
+/// Defines a result to encapsulate result logic of some action.
 /// </summary>
 [DataContract]
 public class Result : IResult
@@ -41,45 +40,43 @@ public class Result : IResult
     }
 
     /// <summary>
-    /// Success result with only one warning message.
+    /// Error result with error object.
     /// </summary>
-    /// <param name="warning">Warning message.</param>
-    /// <returns>Success result.</returns>
-    public static Result Success(string warning)
-    {
-        return new Result { Warnings = string.IsNullOrWhiteSpace(warning) ? Array.Empty<string>() : new[] { warning } };
-    }
-
-    public static Result<T> Success<T>(T data, params string[] warnings)
-    {
-        return Result<T>.Success(data, warnings);
-    }
-
+    /// <param name="error">Error object</param>
+    /// <returns>Error result.</returns>
     public static Result Error(Error error)
     {
         return new Result { ErrorObj = error };
     }
 
+    /// <summary>
+    /// Error result with error object.
+    /// </summary>
+    /// <param name="error">Error object</param>
+    /// <returns>Error result.</returns>
     public static Result<T> Error<T>(Error error)
     {
         return Result<T>.Error(error);
     }
 
-    public static Result Error(string generalErrorMessage, string detailErrorMessage)
-    {
-        Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessage);
-
-        return new Result { ErrorObj = error };
-    }
-
-    public static Result Error(string generalErrorMessage, IReadOnlyCollection<string> detailErrorMessages)
+    /// <summary>
+    /// Error result with error messages.
+    /// </summary>
+    /// <param name="generalErrorMessage">General error message.</param>
+    /// <param name="detailErrorMessages">Detail error messages.</param>
+    /// <returns>Error result.</returns>
+    public static Result Error(string generalErrorMessage, params string[] detailErrorMessages)
     {
         Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessages);
 
         return new Result { ErrorObj = error };
     }
 
-    public void AddWarnings(IEnumerable<string> warnings)
+    /// <summary>
+    /// Add warnings to result.
+    /// </summary>
+    /// <param name="warnings">Collection of warnings.</param>
+    public void AddWarnings(params string[] warnings)
     {
         Warnings ??= new List<string>();
 
@@ -100,33 +97,50 @@ public sealed class Result<T> : Result, IResult<T>
     [DataMember(Order = 4)]
     public T Data { get; set; }
 
+    /// <summary>
+    /// Success result with data and params warning messages.
+    /// </summary>
+    /// <param name="warnings">Params array of warning messages.</param>
+    /// <returns>Success result with data.</returns>
     public static Result<T> Success(T data, params string[] warnings)
     {
         return new Result<T> { Data = data, Warnings = warnings };
     }
 
+    /// <summary>
+    /// Error result with error object.
+    /// </summary>
+    /// <param name="error">Error object</param>
+    /// <returns>Error result.</returns>
     public new static Result<T> Error(Error error)
     {
         return new Result<T> { ErrorObj = error };
     }
 
-    public new static Result<T> Error(string generalErrorMessage, string detailErrorMessage)
+    /// <summary>
+    /// Error result with error messages.
+    /// </summary>
+    /// <param name="generalErrorMessage">General error message.</param>
+    /// <param name="detailErrorMessages">Detail error messages.</param>
+    /// <returns>Error result.</returns>
+    public new static Result<T> Error(string generalErrorMessage, params string[] detailErrorMessages)
     {
-        Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessage);
+        Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessages);
 
         return new Result<T> { ErrorObj = error };
     }
 
+    /// <summary>
+    /// Error result with error messages, error identifier and message params.
+    /// </summary>
+    /// <param name="generalErrorMessage">General error message.</param>
+    /// <param name="detailErrorMessage">Detail error message.</param>
+    /// <param name="errorId">Error identifier.</param>
+    /// <param name="messageParams">Message params.</param>
+    /// <returns>Error result.</returns>
     public static Result<T> Error(string generalErrorMessage, string detailErrorMessage, int? errorId, IReadOnlyDictionary<string, object> messageParams = null)
     {
         Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessage, errorId, messageParams);
-
-        return new Result<T> { ErrorObj = error };
-    }
-
-    public static Result<T> Error(string generalErrorMessage, IEnumerable<string> detailErrorMessages)
-    {
-        Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessages);
 
         return new Result<T> { ErrorObj = error };
     }
