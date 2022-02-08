@@ -7,10 +7,10 @@ using Result.Errors;
 namespace Result;
 
 /// <summary>
-/// Defines a result to incapsulate result logic of some action
+/// Defines a result to incapsulate result logic of some action.
 /// </summary>
 [DataContract]
-public class Result
+public class Result : IResult
 {
     /// <summary>
     /// Collection of result warnings.
@@ -30,34 +30,29 @@ public class Result
     [DataMember(Order = 3)]
     public bool IsSuccess => ErrorObj is null;
 
-    public static Result Success(IEnumerable<string> warnings)
-    {
-        return new Result { Warnings = warnings.ToList() };
-    }
-
+    /// <summary>
+    /// Success result with warning messages.
+    /// </summary>
+    /// <param name="warnings">Params array of warning messages.</param>
+    /// <returns>Success result.</returns>
     public static Result Success(params string[] warnings)
     {
         return new Result { Warnings = warnings };
     }
 
+    /// <summary>
+    /// Success result with only one warning message.
+    /// </summary>
+    /// <param name="warning">Warning message.</param>
+    /// <returns>Success result.</returns>
     public static Result Success(string warning)
     {
         return new Result { Warnings = string.IsNullOrWhiteSpace(warning) ? Array.Empty<string>() : new[] { warning } };
     }
 
-    public static Result<T> Success<T>(T data, IEnumerable<string> warnings)
-    {
-        return Result<T>.Success(data, warnings);
-    }
-
     public static Result<T> Success<T>(T data, params string[] warnings)
     {
         return Result<T>.Success(data, warnings);
-    }
-
-    public static Result<T> Success<T>(T data, string warning)
-    {
-        return Result<T>.Success(data, warning);
     }
 
     public static Result Error(Error error)
@@ -73,12 +68,14 @@ public class Result
     public static Result Error(string generalErrorMessage, string detailErrorMessage)
     {
         Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessage);
+
         return new Result { ErrorObj = error };
     }
 
     public static Result Error(string generalErrorMessage, IReadOnlyCollection<string> detailErrorMessages)
     {
         Error error = Errors.Error.CreateError(generalErrorMessage, detailErrorMessages);
+
         return new Result { ErrorObj = error };
     }
 
@@ -91,11 +88,11 @@ public class Result
 }
 
 /// <summary>
-/// Defines an inheritor of the base result class with the ability to return a success object.
+/// Defines an generic inheritor of the base result class with the ability to return a success object.
 /// </summary>
 /// <typeparam name="T">Data object type for success result.</typeparam>
 [DataContract]
-public sealed class Result<T> : Result
+public sealed class Result<T> : Result, IResult<T>
 {
     /// <summary>
     /// Data object. Filled only in case of successful result.
@@ -103,28 +100,9 @@ public sealed class Result<T> : Result
     [DataMember(Order = 4)]
     public T Data { get; set; }
 
-    public static Result<T> Success(T data, IEnumerable<string> warnings)
-    {
-        return new Result<T> { Data = data, Warnings = warnings.ToList() };
-    }
-
     public static Result<T> Success(T data, params string[] warnings)
     {
         return new Result<T> { Data = data, Warnings = warnings };
-    }
-
-    public static Result<T> Success(T data, string warning)
-    {
-        Result<T> result = new()
-        {
-            Data = data,
-
-            Warnings = string.IsNullOrWhiteSpace(warning)
-                ? Array.Empty<string>()
-                : new[] { warning }
-        };
-
-        return result;
     }
 
     public new static Result<T> Error(Error error)
