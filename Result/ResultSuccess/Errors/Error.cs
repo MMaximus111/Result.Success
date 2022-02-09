@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -54,7 +55,7 @@ namespace ResultSuccess.Errors
         /// <param name="detailErrorMessage">Detailed message about error.</param>
         /// <param name="errorId">Error identifier.</param>
         /// <param name="messageParams">Message parameters.</param>
-        /// <returns></returns>
+        /// <returns>Error object.</returns>
         public static Error CreateError(string generalErrorMessage, string detailErrorMessage, int? errorId, IReadOnlyDictionary<string, object> messageParams = null)
         {
             Error error = new(generalErrorMessage, errorId);
@@ -71,7 +72,7 @@ namespace ResultSuccess.Errors
         /// </summary>
         /// <param name="generalErrorMessage">General error message.</param>
         /// <param name="detailErrorMessages">Detail error messages params array.</param>
-        /// <returns></returns>
+        /// <returns>Error object.</returns>
         public static Error CreateError(string generalErrorMessage, params string[] detailErrorMessages)
         {
             Error error = new (generalErrorMessage);
@@ -95,6 +96,11 @@ namespace ResultSuccess.Errors
         /// <param name="error">Error object.</param>
         public void AddErrorDetail(Error error)
         {
+            if (error is null)
+            {
+                throw new ArgumentNullException(nameof(error));
+            }
+
             Details ??= new List<Error>();
 
             Details.Add(error);

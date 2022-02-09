@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ResultSuccess.Errors;
@@ -46,6 +47,11 @@ public class Result : IResult
     /// <returns>Error result.</returns>
     public static Result Error(Error error)
     {
+        if (error is null)
+        {
+            throw new ArgumentNullException(nameof(error));
+        }
+
         return new Result { ErrorObj = error };
     }
 
@@ -72,7 +78,7 @@ public class Result : IResult
         {
             Warnings ??= new List<string>();
 
-            Warnings = Warnings.Union(warnings).ToList();   
+            Warnings = Warnings.Union(warnings).ToList();
         }
     }
 }
@@ -107,6 +113,11 @@ public sealed class Result<T> : Result, IResult<T>
     /// <returns>Error result.</returns>
     public new static Result<T> Error(Error error)
     {
+        if (error is null)
+        {
+            throw new ArgumentNullException(nameof(error));
+        }
+
         return new Result<T> { ErrorObj = error };
     }
 
