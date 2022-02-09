@@ -8,12 +8,12 @@
         <Title>Result.Success</Title>
         <Authors>Maxim Usatenko</Authors>
         <Description>Simple Result pattern implementation in .NET</Description>
-        <RepositoryUrl>https://github.com/MMaximus111/Result</RepositoryUrl>
+        <RepositoryUrl>https://github.com/MMaximus111/Result.Success</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>result, success, error</PackageTags>
         <LangVersion>10</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageProjectUrl>https://github.com/MMaximus111/Result</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/MMaximus111/Result.Success</PackageProjectUrl>
         <PackageId>Result.Success</PackageId>
         <PackageReleaseNotes>First Release. All features enabled. 100% unit test coverage.</PackageReleaseNotes>
         <RootNamespace>ResultSuccess</RootNamespace>
