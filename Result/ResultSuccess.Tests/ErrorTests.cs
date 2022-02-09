@@ -24,7 +24,7 @@ public class ErrorTests
     }
 
     [Fact]
-    public void AddErrorDetail_ShouldAddErrorDetail_Always()
+    public void AddErrorDetail_ShouldAddErrorDetail_WhenErrorIsNotNull()
     {
         Error error = Error.CreateError("general message");
 
@@ -35,11 +35,20 @@ public class ErrorTests
         Assert.Contains(detailError, error.Details);
     }
 
+    [Fact]
+    public void AddErrorDetail_ShouldThrowException_WhenErrorIsNull()
+    {
+        Error error = Error.CreateError("general message");
+
+        Assert.Throws<ArgumentNullException>(() => error.AddErrorDetail(null));
+    }
+
     [Theory]
     [InlineData(1, "gm", "dm")]
     [InlineData(999, "", "qwerty")]
     [InlineData(null, null, null)]
     [InlineData(-100, "Some info about error", "detail")]
+    [InlineData(1234567, "           ", "              ")]
     public void CreateErrorlWithErrorId_ShouldInitializeAllCorrect_Always(int? errorId, string generalMessage, string detailErrorMessage)
     {
         Dictionary<string, object> messageParams = new ()
