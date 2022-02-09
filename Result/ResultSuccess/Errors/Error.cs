@@ -43,7 +43,7 @@ namespace ResultSuccess.Errors
         public IReadOnlyDictionary<string, object> MessageParams { get; protected set; }
 
         /// <summary>
-        /// Detail error
+        /// Detail error.
         /// </summary>
         [DataMember(Order = 4)]
         public List<Error> Details { get; protected set; }
@@ -71,7 +71,7 @@ namespace ResultSuccess.Errors
         /// Create error with error messages.
         /// </summary>
         /// <param name="generalErrorMessage">General error message.</param>
-        /// <param name="detailErrorMessages">Detail error messages params array.</param>
+        /// <param name="detailErrorMessages">Detail error message params array.</param>
         /// <returns>Error object.</returns>
         public static Error CreateError(string generalErrorMessage, params string[] detailErrorMessages)
         {

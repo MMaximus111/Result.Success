@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageVersion>1.0.2</PackageVersion>
         <Title>Result.Success</Title>
         <Authors>Maxim Usatenko</Authors>
         <Description>Simple Result pattern implementation in .NET</Description>
@@ -13,9 +13,10 @@
         <PackageTags>result, success, error</PackageTags>
         <LangVersion>10</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageProjectUrl>https://github.com/MMaximus111/Result.Success</PackageProjectUrl>
         <PackageId>Result.Success</PackageId>
-        <PackageReleaseNotes>First Release. All features enabled. 100% unit test coverage.</PackageReleaseNotes>
+        <PackageReleaseNotes>Add documentation file.</PackageReleaseNotes>
         <RootNamespace>ResultSuccess</RootNamespace>
     </PropertyGroup>
     <PropertyGroup>

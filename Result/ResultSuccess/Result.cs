@@ -99,6 +99,7 @@ public sealed class Result<T> : Result, IResult<T>
     /// <summary>
     /// Success result with data and params warning messages.
     /// </summary>
+    /// <param name="data">Success data.</param>
     /// <param name="warnings">Params array of warning messages.</param>
     /// <returns>Success result with data.</returns>
     public static Result<T> Success(T data, params string[] warnings)
