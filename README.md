@@ -1,4 +1,4 @@
-# Result.Success
+# Result.Success✔️
 Simple Result pattern implementation in .NET
 
 Examples in the [wiki](https://github.com/MMaximus111/Result/wiki).
