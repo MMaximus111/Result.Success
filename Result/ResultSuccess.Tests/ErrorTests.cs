@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Result.Errors;
+using ResultSuccess.Errors;
 using Xunit;
 
-namespace Result.Tests;
+namespace ResultSuccess.Tests;
 
 public class ErrorTests
 {

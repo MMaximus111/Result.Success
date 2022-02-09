@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Result.Errors;
+namespace ResultSuccess.Errors;
 
 /// <summary>
 /// Error contract.

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Result.Errors;
+using ResultSuccess.Errors;
 
-namespace Result;
+namespace ResultSuccess;
 
 public interface IResult
 {

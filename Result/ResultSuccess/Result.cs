@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using Result.Errors;
+using ResultSuccess.Errors;
 
-namespace Result;
+namespace ResultSuccess;
 
 /// <summary>
 /// Defines a result to encapsulate result logic of some action.

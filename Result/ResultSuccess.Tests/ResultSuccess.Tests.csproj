@@ -5,6 +5,8 @@
         <Nullable>disable</Nullable>
 
         <IsPackable>false</IsPackable>
+
+        <RootNamespace>ResultSuccess.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Result\Result.csproj" />
+      <ProjectReference Include="..\ResultSuccess\ResultSuccess.csproj" />
     </ItemGroup>
 
 </Project>
