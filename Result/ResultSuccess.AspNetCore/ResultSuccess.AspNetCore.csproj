@@ -4,22 +4,30 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <PackageVersion>1.1.0</PackageVersion>
-        <Title>Result.Success</Title>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Title>Result.Success.AspNetCore</Title>
         <Authors>Maxim Usatenko</Authors>
-        <Description>Simple Result pattern implementation in .NET</Description>
+        <Description>AspNetCore extensions for Result pattern in .NET</Description>
         <RepositoryUrl>https://github.com/MMaximus111/Result</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>result, success, error</PackageTags>
+        <PackageTags>Result, ActionResult</PackageTags>
         <LangVersion>10</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/MMaximus111/Result</PackageProjectUrl>
-        <PackageId>Result.Success</PackageId>
-        <PackageReleaseNotes>New simple extensions.</PackageReleaseNotes>
-        <RootNamespace>ResultSuccess</RootNamespace>
+        <PackageId>Result.Success.AspNetCore</PackageId>
+        <PackageReleaseNotes>AspNetCore extensions for Result.</PackageReleaseNotes>
+        <RootNamespace>ResultSuccess.AspNetCore</RootNamespace>
     </PropertyGroup>
     <PropertyGroup>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ResultSuccess\ResultSuccess.csproj" />
+    </ItemGroup>
 
 </Project>

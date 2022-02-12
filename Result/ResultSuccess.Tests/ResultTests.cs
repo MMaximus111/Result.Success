@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using ResultSuccess.AspNetCore;
 using ResultSuccess.Errors;
 using Xunit;
 
@@ -39,7 +42,11 @@ public class ResultTests
 
         Assert.False(result.IsSuccess);
 
-        Result resultWithData = Result<SuccessDto>.Error(Error.CreateError(null, null));
+        Result resultWithData = Result<SuccessDto>.Error(Error.CreateError(null, detailErrorMessages: null));
+
+        Assert.False(resultWithData.IsSuccess);
+        
+        resultWithData = Result<SuccessDto>.Error(Error.CreateError(null, errorId: null));
 
         Assert.False(resultWithData.IsSuccess);
 
@@ -51,7 +58,11 @@ public class ResultTests
     [Fact]
     public void Error_ShouldNotCreateDataObject_Always()
     {
-        Result<SuccessDto> result = Result<SuccessDto>.Error(Error.CreateError(null, null));
+        Result<SuccessDto> result = Result<SuccessDto>.Error(Error.CreateError(null, detailErrorMessages: null));
+
+        Assert.Null(result.Data);
+        
+        result = Result<SuccessDto>.Error(Error.CreateError(null, errorId: null));
 
         Assert.Null(result.Data);
 
@@ -166,5 +177,71 @@ public class ResultTests
     {
         Assert.Throws<ArgumentNullException>(() => Result.Error(error: null));
         Assert.Throws<ArgumentNullException>(() => Result<SuccessDto>.Error(error: null));
+    }
+
+    [Fact]
+    public void ToActionResult_ShouldReturnSuccessStatusCodeByDefault_WhenResultSuccess()
+    {
+        Result successResult = Result.Success();
+
+        IActionResult actionResult = successResult.ToActionResult();
+
+        HttpStatusCode httpStatusCode = GetStatusCodeFromActionResult(actionResult);
+        
+        Assert.Equal(HttpStatusCode.OK, httpStatusCode);
+        
+        Result<SuccessDto> successResultWithData = Result<SuccessDto>.Success(null);
+        
+        actionResult = successResultWithData.ToActionResult();
+
+        httpStatusCode = GetStatusCodeFromActionResult(actionResult);
+        
+        Assert.Equal(HttpStatusCode.OK, httpStatusCode);
+
+    }
+    
+    [Fact]
+    public void ToActionResult_ShouldReturnErrorStatusCodeByDefault_WhenResultError()
+    {
+        Result errorResult = Result.Error("Error message.");
+
+        IActionResult actionResult = errorResult.ToActionResult();
+
+        HttpStatusCode httpStatusCode = GetStatusCodeFromActionResult(actionResult);
+        
+        Assert.Equal(HttpStatusCode.BadRequest, httpStatusCode);
+        
+        Result<SuccessDto> errorResultWithData = Result<SuccessDto>.Error("error text");
+        
+        actionResult = errorResultWithData.ToActionResult();
+
+        httpStatusCode = GetStatusCodeFromActionResult(actionResult);
+        
+        Assert.Equal(HttpStatusCode.BadRequest, httpStatusCode);
+    }
+
+    [Fact]
+    public void ToActionResult_ShouldReturnOverridenStatusCode_Always()
+    {
+        Result result = Result.Success();
+
+        IActionResult actionResult = result.ToActionResult((int)HttpStatusCode.Created);
+        
+        HttpStatusCode httpStatusCode = GetStatusCodeFromActionResult(actionResult);
+        
+        Assert.Equal(HttpStatusCode.Created, httpStatusCode);
+        
+        result = Result.Error("error");
+
+        actionResult = result.ToActionResult(errorStatusCode: (int)HttpStatusCode.Conflict);
+        
+        httpStatusCode = GetStatusCodeFromActionResult(actionResult);
+        
+        Assert.Equal(HttpStatusCode.Conflict, httpStatusCode);
+    } 
+
+    private static HttpStatusCode GetStatusCodeFromActionResult(IActionResult actionResult)
+    {
+        return (HttpStatusCode)actionResult.GetType().GetProperty("StatusCode").GetValue(actionResult, null);
     }
 }
