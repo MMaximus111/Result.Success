@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.0.1</PackageVersion>
         <Title>Result.Success.AspNetCore</Title>
         <Authors>Maxim Usatenko</Authors>
         <Description>AspNetCore extensions for Result pattern in .NET</Description>
@@ -15,7 +15,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/MMaximus111/Result</PackageProjectUrl>
         <PackageId>Result.Success.AspNetCore</PackageId>
-        <PackageReleaseNotes>AspNetCore extensions for Result.</PackageReleaseNotes>
+        <PackageReleaseNotes>Add documentation.</PackageReleaseNotes>
         <RootNamespace>ResultSuccess.AspNetCore</RootNamespace>
     </PropertyGroup>
     <PropertyGroup>
