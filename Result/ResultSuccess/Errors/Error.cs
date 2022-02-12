@@ -67,6 +67,11 @@ namespace ResultSuccess.Errors
             return error;
         }
 
+        public static Error CreateError(string generalErrorMessage, int? errorId)
+        {
+            return new Error(generalErrorMessage, errorId);
+        }
+
         /// <summary>
         /// Create error with error messages.
         /// </summary>
